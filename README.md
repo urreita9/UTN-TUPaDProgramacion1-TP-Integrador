@@ -272,10 +272,10 @@ Este proyecto fue desarrollado por un equipo de **2 integrantes** en el contexto
 
 #### Responsabilidades Distribuidas
 
-| Integrante       | Rol Principal               | Contribuciones                                                                                                                                                        |
-| ---------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Integrante 1** | Diseño y Estructura         | • Diseño general del programa<br>• Funciones de gestión (agregar, actualizar, buscar)<br>• Funciones de filtrado<br>• Manejo de archivos CSV<br>• Testing y debugging |
-| **Integrante 2** | Implementación y Validación | • Funciones de ordenamiento<br>• Funciones de estadísticas<br>• Sistema de validaciones<br>• Manejo de errores<br>• Documentación y README                            |
+| Integrante                 | Rol Principal               | Contribuciones                                                                                                                                                        |
+| -------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Gerardo Martin Dalesio** | Diseño y Estructura         | • Diseño general del programa<br>• Funciones de gestión (agregar, actualizar, buscar)<br>• Funciones de filtrado<br>• Manejo de archivos CSV<br>• Testing y debugging |
+| **Francisco Urrea**        | Implementación y Validación | • Funciones de ordenamiento<br>• Funciones de estadísticas<br>• Sistema de validaciones<br>• Manejo de errores<br>• Documentación y README                            |
 
 ### Competencias Desarrolladas
 
