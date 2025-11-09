@@ -3,6 +3,7 @@
 
 # VARIABLES GLOBALES
 paises = []
+continentes_validos = ["América", "Asia", "Europa", "África", "Oceanía", "Antártida"]
 archivo_csv = "paises.csv"
 
 
@@ -93,6 +94,11 @@ def cargar_csv():
                 )
                 continue
 
+            # Validar duplicados en archivo CSV editado manualmente
+            if any(p["nombre"].lower() == nombre.strip().lower() for p in paises):
+                print(f"⚠ País duplicado en línea {i}: '{nombre}' ignorado.")
+                continue
+
             paises.append(
                 {
                     "nombre": nombre.strip(),
@@ -175,6 +181,22 @@ def buscar_pais_por_nombre(nombre):
             return i
     return -1
 
+def seleccionar_continente():
+    """Muestra la lista de continentes y pide una selección numérica al usuario."""
+    print("\n--- SELECCIÓN DE CONTINENTE ---")
+    
+    for i in range(len(continentes_validos)):
+        print(f"  {i + 1}. {continentes_validos[i]}")
+
+    seleccion = input("Seleccione continente por número (1-6): ").strip()
+    
+    if seleccion.isdigit():
+        indice = int(seleccion)
+        if 1 <= indice <= len(continentes_validos):
+            return continentes_validos[indice - 1]
+    
+    print("✗ Error: Selección de continente inválida.")
+    return None
 
 # ============= FUNCIONES DE GESTIÓN =============
 
@@ -187,14 +209,12 @@ def agregar_pais():
     if not validar_no_vacio(nombre, "Nombre"):
         return
 
-    # Validar que nombre solo contenga letras y espacios
+    # Validar que nombre solo contenga letras, espacios y guiones (incluye acentos y ñ)
     nombre_valido = True
     for caracter in nombre:
         if not (
-            (caracter >= "a" and caracter <= "z")
-            or (caracter >= "A" and caracter <= "Z")
-            or caracter == " "
-            or caracter == "-"
+            (caracter.lower() >= "a" and caracter.lower() <= "z")
+            or caracter in " áéíóúÁÉÍÓÚñÑ-"
         ):
             nombre_valido = False
             break
@@ -215,23 +235,8 @@ def agregar_pais():
     if not validar_numero(superficie, "Superficie"):
         return
 
-    continente = input("Continente: ").strip()
-    if not validar_no_vacio(continente, "Continente"):
-        return
-
-    # Validar que continente solo contenga letras y espacios
-    continente_valido = True
-    for caracter in continente:
-        if not (
-            (caracter >= "a" and caracter <= "z")
-            or (caracter >= "A" and caracter <= "Z")
-            or caracter == " "
-        ):
-            continente_valido = False
-            break
-
-    if not continente_valido:
-        print("✗ Error: Continente solo puede contener letras y espacios")
+    continente = seleccionar_continente() 
+    if continente is None: 
         return
 
     nuevo_pais = {
@@ -302,27 +307,21 @@ def filtrar_por_continente():
     """Filtra países por continente"""
     print("\n--- FILTRAR POR CONTINENTE ---")
 
-    continentes_unicos = []
-    for p in paises:
-        if p["continente"] not in continentes_unicos:
-            continentes_unicos.append(p["continente"])
-
-    continentes_unicos.sort()
-
+     # Se usa la lista validada de continentes para evitar valores incorrectos
     print("\nContinentes disponibles:")
-    for i in range(len(continentes_unicos)):
-        print(f"  {i + 1}. {continentes_unicos[i]}")
+    for i in range(len(continentes_validos)):
+        print(f"  {i + 1}. {continentes_validos[i]}")
 
     seleccion = input("Seleccione continente (número): ").strip()
     if (
         not seleccion.isdigit()
         or int(seleccion) < 1
-        or int(seleccion) > len(continentes_unicos)
+        or int(seleccion) > len(continentes_validos)
     ):
         print("✗ Error: Selección inválida\n")
         return
 
-    continente_filtro = continentes_unicos[int(seleccion) - 1]
+    continente_filtro = continentes_validos[int(seleccion) - 1]
     resultados = []
     for p in paises:
         if p["continente"] == continente_filtro:
@@ -402,6 +401,11 @@ def filtrar_por_superficie():
 def ordenar_por_nombre():
     """Ordena países alfabéticamente por nombre"""
     print("\n--- ORDENAR POR NOMBRE ---")
+
+    # Verificación de lista vacía antes de ordenar
+    if not paises:
+        print("✗ No hay países para ordenar.\n")
+        return
 
     orden = input("¿Ascendente (A) o Descendente (D)?: ").upper().strip()
     if orden not in ["A", "D"]:
