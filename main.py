@@ -283,20 +283,26 @@ def actualizar_pais():
 
 
 def buscar_pais():
-    """Busca países por nombre (coincidencia parcial o exacta)"""
+    """Busca países por las primeras tres letras o coincidencia parcial"""
     print("\n--- BUSCAR PAÍS ---")
 
-    busqueda = input("Ingrese nombre (o parte de él): ").strip().lower()
+    busqueda = input("Ingrese al menos las tres primeras letras del país: ").strip().lower()
     if not validar_no_vacio(busqueda, "Búsqueda"):
+        return
+
+    # Validar longitud mínima
+    if len(busqueda) < 3:
+        print("✗ Error: Debe ingresar al menos 3 letras para la búsqueda.\n")
         return
 
     resultados = []
     for p in paises:
-        if busqueda in p["nombre"].lower():
+        # Se busca coincidencia parcial desde el inicio del nombre
+        if p["nombre"].lower().startswith(busqueda):
             resultados.append(p)
 
     if not resultados:
-        print(f"✗ No se encontraron países con '{busqueda}'\n")
+        print(f"✗ No se encontraron países que comiencen con '{busqueda}'\n")
         return
 
     print(f"\n✓ Se encontraron {len(resultados)} resultado(s):")
