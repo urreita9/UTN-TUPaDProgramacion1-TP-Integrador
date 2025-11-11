@@ -352,12 +352,6 @@ programacion_1_tp_integrador/
 
 ---
 
-## 📸 Capturas de Pantalla
-
-[Aquí irían las capturas de pantalla del programa en ejecución]
-
----
-
 ## 🎓 Conclusiones del Proyecto
 
 Este trabajo permitió consolidar conocimientos fundamentales de programación, especialmente en:
@@ -367,6 +361,14 @@ Este trabajo permitió consolidar conocimientos fundamentales de programación, 
 - Manejo robusto de entradas de usuario
 - Persistencia de datos en archivos
 - Trabajo colaborativo en equipo
+
+---
+
+🎥 Video del Proyecto
+
+Mirá la presentación completa del sistema en YouTube:
+
+➡️ https://youtu.be/x_wAbWeC0cc
 
 ---
 
